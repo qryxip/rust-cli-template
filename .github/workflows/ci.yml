@@ -31,7 +31,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: generate
-          args: --git . -n tool
+          args: --git . --branch ${{ github.sha }} -n tool
 
       - name: '`git ls-files | xargs rm`'
         run: git ls-files | xargs rm
@@ -107,7 +107,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: generate
-          args: --git . -n tool
+          args: --git . --branch ${{ github.sha }} -n tool
 
       - name: '`git ls-files | xargs rm`'
         run: git ls-files | xargs rm
