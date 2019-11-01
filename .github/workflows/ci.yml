@@ -118,6 +118,12 @@ jobs:
 
       - name: '`git ls-files | xargs rm`'
         run: git ls-files | xargs rm
+        if: matrix.os != windows-2019
+
+      - name: '`git ls-files | % { ri $_ }`'
+        run: git ls-files | % { ri $_ }
+        shell: powershell
+        if: matrix.os == windows-2019
 
       - name: cargo clippy
         uses: actions-rs/cargo@v1
