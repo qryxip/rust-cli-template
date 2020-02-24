@@ -24,9 +24,11 @@ jobs:
 
       - name: Install `cargo-generate`
         run: |
-          wget -P ~/Downloads https://github.com/ashleygwilliams/cargo-generate/releases/download/v0.5.0/cargo-generate-v0.5.0-x86_64-unknown-linux-musl.tar.gz
-          tar xzvf ~/Downloads/cargo-generate-v0.5.0-x86_64-unknown-linux-musl.tar.gz -C ~/Downloads
-          echo "::add-path::$HOME/Downloads/cargo-generate-v0.5.0-x86_64-unknown-linux-musl"
+          mkdir ../cargo-generate
+          cd "$_"
+          wget https://github.com/ashleygwilliams/cargo-generate/releases/download/v0.5.0/cargo-generate-v0.5.0-x86_64-unknown-linux-musl.tar.gz
+          tar xzvf ./cargo-generate-v0.5.0-x86_64-unknown-linux-musl.tar.gz
+          echo "::add-path::$PWD/cargo-generate-v0.5.0-x86_64-unknown-linux-musl"
 
       - name: '`cargo generate --git "$GITHUB_WORKSPACE" -n generated`'
         run: cargo generate --git "$GITHUB_WORKSPACE" -n generated
@@ -89,7 +91,7 @@ jobs:
       - name: Install `cargo-generate`
         run: |
           mkdir ../cargo-generate
-          cd ../cargo-generate
+          cd "$_"
           curl -SLo ./cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}.tar.gz https://github.com/ashleygwilliams/cargo-generate/releases/download/v0.5.0/cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}.tar.gz
           tar xzvf ./cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}.tar.gz
           path="$PWD/cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}"
@@ -100,6 +102,9 @@ jobs:
         shell: bash
 
       - run: git clone https://github.com/kelseyhightower/nocode
+        working-directory: ..
+
+      - run: git clone "$GITHUB_WORKSPACE" ./template
         working-directory: ..
 
       - name: '`cargo generate --git "$GITHUB_WORKSPACE" -n generated`'
