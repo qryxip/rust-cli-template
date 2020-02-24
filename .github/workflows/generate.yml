@@ -90,16 +90,11 @@ jobs:
 
       - name: Install `cargo-generate`
         run: |
-          echo ~
-          echo "$HOME"
-          echo "$USERPROFILE"
-          if ${{ startsWith(matrix.os, 'windows') }}; then
-            export HOME="$(cygpath "$USERPROFILE")"
-          fi
           mkdir -p ~/Downloads
-          curl -SLo ~/Downloads/cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}.tar.gz https://github.com/ashleygwilliams/cargo-generate/releases/download/v0.5.0/cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}.tar.gz
-          tar xzvf ~/Downloads/cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}.tar.gz -C ~/Downloads
-          path="$HOME/Downloads/cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}"
+          cd ~/Downloads
+          curl -SLo ./cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}.tar.gz https://github.com/ashleygwilliams/cargo-generate/releases/download/v0.5.0/cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}.tar.gz
+          tar xzvf ./cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}.tar.gz
+          path="$PWD/cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}"
           if ${{ startsWith(matrix.os, 'windows') }}; then
             path="$(cygpath -w "$path")"
           fi
