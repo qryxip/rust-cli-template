@@ -104,7 +104,7 @@ jobs:
       - run: git clone https://github.com/kelseyhightower/nocode
         working-directory: ..
 
-      - run: git clone "$GITHUB_WORKSPACE" ./template
+      - run: cargo generate --git https://github.com/kelseyhightower/nocode -n aaaaaaaaaa
         working-directory: ..
 
       - name: '`cargo generate --git "$GITHUB_WORKSPACE" -n generated`'
