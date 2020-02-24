@@ -14,8 +14,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          path: ./template
 
       - name: Setup `stable-x86_64-unknown-linux-gnu`
         uses: actions-rs/toolchain@v1
@@ -30,17 +28,19 @@ jobs:
           command: install
           args: --debug --locked cargo-generate
 
-      - name: '`cargo generate --git ./template -n generated`'
+      - name: '`cargo generate --git ${{ github.workspace }} -n generated`'
         uses: actions-rs/cargo@v1
         with:
           command: generate
-          args: --git ./template -n generated
+          args: --git ${{ github.workspace }} -n generated
+        working-directory: ..
 
       - name: '`cargo fmt -- --check`'
         uses: actions-rs/cargo@v1
         with:
           command: fmt
-          args: --all --manifest-path ./generated/Cargo.toml -- --check
+          args: --all -- --check
+        working-directory: ../generated
 
   build:
     strategy:
@@ -70,8 +70,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          path: ./template
 
       - name: '`sudo apt-get install musl-tools`'
         run: sudo apt-get install musl-tools
@@ -98,26 +96,30 @@ jobs:
           command: install
           args: --debug --locked cargo-generate
 
-      - name: '`cargo generate --git ./template -n generated`'
+      - name: '`cargo generate --git ${{ github.workspace }} -n generated`'
         uses: actions-rs/cargo@v1
         with:
           command: generate
-          args: --git ./template -n generated
+          args: --git ${{ github.workspace }} -n generated
+        working-directory: ..
 
-      - name: '`cargo clippy --target ${{ matrix.target_triple }} --manifest-path ./generated/Cargo.toml -- -D warnings`'
+      - name: '`cargo clippy --target ${{ matrix.target_triple }} -- -D warnings`'
         uses: actions-rs/cargo@v1
         with:
           command: clippy
-          args: --target ${{ matrix.target_triple }} --manifest-path ./generated/Cargo.toml -- -D warnings
+          args: --target ${{ matrix.target_triple }} -- -D warnings
+        working-directory: ../generated
 
-      - name: '`cargo test --no-fail-fast --target ${{ matrix.target_triple }} --manifest-path ./generated/Cargo.toml`'
+      - name: '`cargo test --no-fail-fast --target ${{ matrix.target_triple }}`'
         uses: actions-rs/cargo@v1
         with:
           command: test
-          args: --no-fail-fast --target ${{ matrix.target_triple }} --manifest-path ./generated/Cargo.toml
+          args: --no-fail-fast --target ${{ matrix.target_triple }}
+        working-directory: ../generated
 
-      - name: '`cargo build --target ${{ matrix.target_triple }} --manifest-path ./generated/Cargo.toml`'
+      - name: '`cargo build --target ${{ matrix.target_triple }}`'
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --target ${{ matrix.target_triple }} --manifest-path ./generated/Cargo.toml
+          args: --target ${{ matrix.target_triple }}
+        working-directory: ../generated
