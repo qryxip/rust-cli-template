@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          depth: '0' # cargo-generate cannot clone shallow-cloned repositories.
+          fetch-depth: '0' # cargo-generate cannot clone shallow-cloned repositories.
 
       - name: Setup `stable-x86_64-unknown-linux-gnu`
         uses: actions-rs/toolchain@v1
@@ -71,7 +71,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          depth: '0' # cargo-generate cannot clone shallow-cloned repositories.
+          fetch-depth: '0' # cargo-generate cannot clone shallow-cloned repositories.
 
       - name: '`sudo apt-get install musl-tools`'
         run: sudo apt-get install musl-tools
