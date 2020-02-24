@@ -34,6 +34,8 @@ jobs:
 
       - run: cd ${{ github.workspace }} && git status
 
+      - run: mkdir ../temp
+
       - name: '`cargo install --debug --locked cargo-generate`'
         uses: actions-rs/cargo@v1
         with:
