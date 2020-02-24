@@ -90,13 +90,15 @@ jobs:
 
       - name: Install `cargo-generate`
         run: |
-          curl -SLo ~/Downloads/cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}.tar.gz --create-dirs https://github.com/ashleygwilliams/cargo-generate/releases/download/v0.5.0/cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}.tar.gz
+          echo ~
+          mkdir -p ~/Downloads
+          curl -SLo ~/Downloads/cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}.tar.gz https://github.com/ashleygwilliams/cargo-generate/releases/download/v0.5.0/cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}.tar.gz
           tar xzvf ~/Downloads/cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}.tar.gz -C ~/Downloads
           echo "::add-path::$HOME/Downloads/cargo-generate-v0.5.0-${{ matrix.cargo_generate_triple }}"
         shell: bash
 
       - name: '`cargo generate --git "$GITHUB_WORKSPACE" -n generated`'
-        run: cargo generate --git "$GITHUB_WORKSPACE" -n generated
+        run: echo "$GITHUB_WORKSPACE" && cargo generate --git "$GITHUB_WORKSPACE" -n generated
         shell: bash
         working-directory: ..
 
