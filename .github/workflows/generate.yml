@@ -30,8 +30,8 @@ jobs:
           tar xzvf ./cargo-generate-v0.5.0-x86_64-unknown-linux-musl.tar.gz
           echo "::add-path::$PWD/cargo-generate-v0.5.0-x86_64-unknown-linux-musl"
 
-      - name: '`cargo generate --git "$GITHUB_WORKSPACE" -n generated`'
-        run: cargo generate --git "$GITHUB_WORKSPACE" -n generated
+      - name: '`cargo generate --git "file://$GITHUB_WORKSPACE" -n generated`'
+        run: cargo generate --git "file://$GITHUB_WORKSPACE" -n generated
         working-directory: ..
 
       - name: '`cargo fmt --manifest-path ../generated/Cargo.toml -- --check`'
@@ -107,11 +107,11 @@ jobs:
       - run: cargo generate --git https://github.com/kelseyhightower/nocode -n aaaaaaaaaa
         working-directory: ..
 
-      - run: cargo generate --git "$GITHUB_WORKSPACE/../nocode" -n bbbbbbbbbb
+      - run: cargo generate --git "file://$GITHUB_WORKSPACE/../nocode" -n bbbbbbbbbb
         working-directory: ..
 
-      - name: '`cargo generate --git "$GITHUB_WORKSPACE" -n generated`'
-        run: echo "$PWD" && echo "$GITHUB_WORKSPACE" && cargo generate --git "$GITHUB_WORKSPACE" -n generated
+      - name: '`cargo generate --git "file://$GITHUB_WORKSPACE" -n generated`'
+        run: echo "$PWD" && echo "$GITHUB_WORKSPACE" && cargo generate --git "file://$GITHUB_WORKSPACE" -n generated
         shell: bash
         working-directory: ..
 
