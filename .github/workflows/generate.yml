@@ -107,6 +107,9 @@ jobs:
       - run: cargo generate --git https://github.com/kelseyhightower/nocode -n aaaaaaaaaa
         working-directory: ..
 
+      - run: cargo generate --git "$GITHUB_WORKSPACE/../nocode" -n bbbbbbbbbb
+        working-directory: ..
+
       - name: '`cargo generate --git "$GITHUB_WORKSPACE" -n generated`'
         run: echo "$PWD" && echo "$GITHUB_WORKSPACE" && cargo generate --git "$GITHUB_WORKSPACE" -n generated
         shell: bash
