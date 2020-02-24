@@ -3,13 +3,13 @@ edition = "2018"
 name = "{{project-name}}"
 version = "0.0.0"
 authors = ["{{authors}}"]
-description = "Rust template for CLI tools."
+# description = "Rust template for CLI tools."
 publish = false
 readme = "README.md"
 keywords = []
 categories = []
-license = "CC0-1.0"
-repository = "https://github.com/qryxip/rust-cli-template"
+# license = ""
+# repository = "https://github.com/qryxip/{{project-name}}"
 
 [dependencies]
 anyhow = "1.0.18"

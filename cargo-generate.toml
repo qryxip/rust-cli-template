@@ -1,2 +1,2 @@
 [template]
-exclude = [".github/workflows/ci.yml"]
+include = ["Cargo.toml", "README.md"]
