@@ -28,11 +28,8 @@ jobs:
           command: install
           args: --debug --locked cargo-generate
 
-      - name: '`pwd`'
-        run: pwd
-
-      - name: '`pwd && cargo generate --git ${{ github.workspace }} -n generated`'
-        run: pwd && cargo generate --git ${{ github.workspace }} -n generated
+      - name: '`cargo generate --git ${{ github.workspace }} -n generated`'
+        run: cargo generate --git ${{ github.workspace }} -n generated
         working-directory: ..
 
       - name: '`cargo fmt --manifest-path ../generated/Cargo.toml -- --check`'
