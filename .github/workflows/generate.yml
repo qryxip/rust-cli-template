@@ -104,7 +104,7 @@ jobs:
           echo "::add-path::$path"
         shell: bash
 
-      - run: git clone https://github.com/kelseyhightower/nocode
+      - run: git clone https://github.com/kelseyhightower/nocode --depth 1
         working-directory: ..
 
       - run: cargo generate --git https://github.com/kelseyhightower/nocode -n aaaaaaaaaa
