@@ -84,7 +84,7 @@ jobs:
           target: ${{ matrix.target_triple }}
           default: true
 
-      - name: 'Setup `${{ matrix-channel }}-${{ matrix.host_triple }}` (target: ${{ matrix.target_triple }})'
+      - name: 'Setup `${{ matrix.channel }}-${{ matrix.host_triple }}` (target: ${{ matrix.target_triple }})'
         uses: actions-rs/toolchain@v1
         with:
           toolchain: ${{ matrix.channel }}-${{ matrix.host_triple }}
