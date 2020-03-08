@@ -1,6 +1,6 @@
 use structopt::clap::AppSettings;
 use structopt::StructOpt;
-use strum::{EnumString, EnumVariantNames, IntoStaticStr};
+use strum::{EnumString, EnumVariantNames, IntoStaticStr, VariantNames as _};
 use tracing::{error, info, Level};
 use tracing_subscriber::FmtSubscriber;
 
@@ -35,7 +35,7 @@ struct Opt {
         long,
         value_name("WHEN"),
         default_value(ColorChoice::default().into()),
-        possible_values(ColorChoice::variants()),
+        possible_values(ColorChoice::VARIANTS),
         help("Coloring")
     )]
     color: ColorChoice,
