@@ -12,13 +12,3 @@ categories = []
 # repository = "https://github.com/qryxip/{{project-name}}"
 
 [dependencies]
-anyhow = "1.0.26"
-atty = "0.2.14"
-structopt = "0.3.11"
-strum = { version = "0.18.0", features = ["derive"] }
-tracing = "0.1.13"
-tracing-subscriber = "0.2.3"
-
-[target.'cfg(windows)'.dependencies]
-winapi = "0.3.8"
-winapi-util = "0.1.3"
