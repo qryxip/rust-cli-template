@@ -13,6 +13,9 @@ on:
     branches-ignore:
       - '**'
 
+env:
+  BIN_TARGET: BIN-NAME-HERE
+
 jobs:
   rustfmt:
     name: Rustfmt
@@ -50,9 +53,6 @@ jobs:
           profile: minimal
           default: true
 
-      - name: Modify `package.name`
-        run: sed -i 's/"BIN-NAMES-HERE"/"gh_releases_from_actions"/' ./Cargo.toml
-
       - name: '`cargo test --no-fail-fast`'
         uses: actions-rs/cargo@v1
         with:
@@ -65,9 +65,6 @@ jobs:
       - name: grcov
         id: grcov
         uses: actions-rs/grcov@v0.1
-
-      - name: Restore `package.name`
-        run: git checkout .
 
       - name: Codecov
         uses: codecov/codecov-action@v1
@@ -194,7 +191,6 @@ jobs:
           if ${{ contains(matrix.target-triple, 'pc-windows') }}; then
             DOT_EXE=.exe
           fi
-          BIN_TARGET=BIN-NAMES-HERE
           EXECUTABLE="$HOME/.cargo/bin/$BIN_TARGET$DOT_EXE"
           ARTIFACT_STEM="$BIN_TARGET-${GITHUB_REF#refs/tags/}-${{ matrix.target-triple }}"
           git archive -o "./$ARTIFACT_STEM.tar" --prefix "$ARTIFACT_STEM/" HEAD
@@ -227,7 +223,7 @@ jobs:
 
       - name: Prefix
         id: prefix
-        run: echo "::set-output name=prefix::BIN-NAMES-HERE-${GITHUB_REF#refs/tags/}-"
+        run: echo "::set-output name=prefix::$BIN_TARGET-${GITHUB_REF#refs/tags/}-"
 
       - name: Download `${{ steps.prefix.outputs.prefix }}x86_64-pc-windows-msvc.zip`
         uses: actions/download-artifact@v1
